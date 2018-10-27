@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.sappenin.ilpv4</groupId>
+  <artifactId>ilpv4-client</artifactId>
+  <version>0.1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <name>ILPv4 Client :: Parent</name>
+  <description>The parent pom for ILPv4 Clients.</description>
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>David Fuelling</name>
+      <organizationUrl>https://github.com/sappenin</organizationUrl>
+    </developer>
+  </developers>
+
+  <scm>
+    <connection>scm:git:git://github.com/sappenin/java-ilp-client.git
+    </connection>
+    <developerConnection>scm:git:git@github.com:sappenin/java-ilp-client.git
+    </developerConnection>
+    <url>https://github.com/sappenin/java-ilp-client</url>
+  </scm>
+
+  <properties>
+    <java.version>1.8</java.version>
+    <ilp.version>0.15.0-SNAPSHOT</ilp.version>
+
+    <maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>
+    <checkstyle.consoleOutput>true</checkstyle.consoleOutput>
+    <checkstyle.failsOnError>false</checkstyle.failsOnError>
+    <checkstyle.failOnViolation>false</checkstyle.failOnViolation>
+    <checkstyle.configLocation>google_checks.xml</checkstyle.configLocation>
+    <checkstyle.linkXRef>false</checkstyle.linkXRef>
+
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <jacoco.percentage.instruction>0.90</jacoco.percentage.instruction>
+  </properties>
+
+  <modules>
+    <module>ilpv4-client-model</module>
+    <module>ilpv4-client-api</module>
+    <module>ilpv4-client-impl</module>
+  </modules>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>ilpv4-client-model</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>ilpv4-client-api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>ilpv4-client-impl</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>21.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.squareup.okhttp3</groupId>
+        <artifactId>okhttp</artifactId>
+        <version>3.11.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest-all</artifactId>
+        <version>1.3</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.immutables</groupId>
+        <artifactId>value</artifactId>
+        <version>2.6.3</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.interledger</groupId>
+        <artifactId>ilp-core</artifactId>
+        <version>${ilp.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.interledger</groupId>
+        <artifactId>ildcp-core</artifactId>
+        <version>${ilp.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.interledger</groupId>
+        <artifactId>ilp-plugin</artifactId>
+        <version>2.0.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.interledger</groupId>
+        <artifactId>codec-framework</artifactId>
+        <version>${ilp.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.interledger</groupId>
+        <artifactId>ilp-core-codecs</artifactId>
+        <version>${ilp.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.interledger</groupId>
+        <artifactId>ildcp-core-codecs</artifactId>
+        <version>${ilp.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.interledger</groupId>
+        <artifactId>btp-core</artifactId>
+        <version>${ilp.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.interledger</groupId>
+        <artifactId>btp-core-codecs</artifactId>
+        <version>${ilp.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>2.19.0</version>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <plugins>
+
+      <plugin>
+        <artifactId>maven-dependency-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.6.2</version>
+        <configuration>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>${maven-checkstyle-plugin.version}</version>
+        <executions>
+          <execution>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <configLocation>google_checks.xml</configLocation>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.7.9</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.20</version>
+        <configuration>
+          <argLine>${argLine}</argLine>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>1.6.8</version>
+        <extensions>true</extensions>
+        <configuration>
+          <serverId>ossrh-snapshots-interledger</serverId>
+          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+          <autoReleaseAfterClose>true</autoReleaseAfterClose>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.2.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!--<plugin>-->
+      <!--<groupId>org.apache.maven.plugins</groupId>-->
+      <!--<artifactId>maven-javadoc-plugin</artifactId>-->
+      <!--<version>2.9.1</version>-->
+      <!--<executions>-->
+      <!--<execution>-->
+      <!--<id>attach-javadocs</id>-->
+      <!--<goals>-->
+      <!--<goal>jar</goal>-->
+      <!--</goals>-->
+      <!--</execution>-->
+      <!--</executions>-->
+      <!--</plugin>-->
+
+    </plugins>
+  </build>
+
+  <reporting>
+    <plugins>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>${maven-checkstyle-plugin.version}</version>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>checkstyle</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+        <configuration>
+          <configLocation>google_checks.xml</configLocation>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.4</version>
+      </plugin>
+
+    </plugins>
+  </reporting>
+
+  <repositories>
+    <repository>
+      <id>snapshots-repo</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh-snapshots-interledger</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <profiles>
+    <profile>
+      <id>sign</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.5</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+</project>
